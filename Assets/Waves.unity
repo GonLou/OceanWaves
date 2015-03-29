@@ -133,7 +133,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3. Solid non textured
+  m_Text: 3. Solid textured
 --- !u!222 &77517371
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: use direction keys
+  m_Text: use [z] and [x] keys to navigate
 --- !u!222 &190178987
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -279,7 +279,7 @@ GameObject:
   - 222: {fileID: 214047994}
   - 114: {fileID: 214047993}
   m_Layer: 5
-  m_Name: Text
+  m_Name: wsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,12 +322,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 0
 --- !u!222 &214047994
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -765,7 +765,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_SelectionColor: {r: .65882355, g: .807843149, b: 1, a: .752941191}
-  m_Text: 
+  m_Text: 0
   m_CaretBlinkRate: 1.70000005
 --- !u!114 &510998093
 MonoBehaviour:
@@ -892,17 +892,17 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: .5
-  m_Range: 10
+  m_Color: {r: .739295006, g: .870607674, b: .948529422, a: 1}
+  m_Intensity: .300000012
+  m_Range: 25
   m_SpotAngle: 30
-  m_CookieSize: 10
+  m_CookieSize: 30
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_Strength: 1
     m_Bias: .0500000007
-    m_Softness: 4
+    m_Softness: 7
     m_SoftnessFade: 1
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
@@ -924,8 +924,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 653927604}
-  m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381661, w: .875426114}
-  m_LocalPosition: {x: 3.6099999, y: 9.56999969, z: 7}
+  m_LocalRotation: {x: .569146812, y: -.227294236, z: .0237421654, w: .789839029}
+  m_LocalPosition: {x: 16.5, y: 13.6000004, z: -11.3999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -970,7 +970,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 676154851}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -1420,7 +1420,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_SelectionColor: {r: .65882355, g: .807843149, b: 1, a: .752941191}
-  m_Text: 
+  m_Text: 0
   m_CaretBlinkRate: 1.70000005
 --- !u!114 &1193365443
 MonoBehaviour:
@@ -1543,7 +1543,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_SelectionColor: {r: .65882355, g: .807843149, b: 1, a: .752941191}
-  m_Text: 
+  m_Text: 0
   m_CaretBlinkRate: 1.70000005
 --- !u!114 &1235555461
 MonoBehaviour:
@@ -1631,7 +1631,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2. Solid textured
+  m_Text: 2. Solid non textured
 --- !u!222 &1340132254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1787,7 +1787,11 @@ MonoBehaviour:
   toggle03: {fileID: 1871171524}
   Button01: {fileID: 1993930278}
   Button02: {fileID: 432426812}
+  Text01: {fileID: 1235555460}
+  Text02: {fileID: 510998092}
+  Text03: {fileID: 1193365442}
   buttonState: 0
+  currentIndex: 0
 --- !u!23 &1444684236
 Renderer:
   m_ObjectHideFlags: 0
@@ -1816,7 +1820,7 @@ MeshCollider:
   m_GameObject: {fileID: 1444684234}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -1851,7 +1855,7 @@ GameObject:
   - 222: {fileID: 1459390702}
   - 114: {fileID: 1459390701}
   m_Layer: 5
-  m_Name: Text
+  m_Name: wlText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1894,12 +1898,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 0
 --- !u!222 &1459390702
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2078,7 +2082,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1660167542}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -2144,7 +2148,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1859244321}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -2778,7 +2782,7 @@ GameObject:
   - 222: {fileID: 2119022718}
   - 114: {fileID: 2119022717}
   m_Layer: 5
-  m_Name: Text
+  m_Name: waText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2821,12 +2825,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 0
 --- !u!222 &2119022718
 CanvasRenderer:
   m_ObjectHideFlags: 0
