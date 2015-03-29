@@ -1,0 +1,7 @@
+fileFormatVersion: 2
+guid: 1c3822fea022d3e4b936f7a1753358fb
+ShaderImporter:
+  defaultTextures:
+  - color_map: {fileID: 2800000, guid: 74eafec3485d12e4fb72adc2235142d4, type: 3}
+  - permutation: {fileID: 2800000, guid: 03f13a3bd2e1e4c44bdb25e7cc5016e2, type: 3}
+  userData: 
