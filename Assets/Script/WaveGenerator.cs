@@ -20,11 +20,17 @@
 	public Toggle toggle03;
 	
 	public Button Button01;	
-	public Button Button02;	
+	public Button Button02;
+
+	public InputField Text01;
+	public InputField Text02;
+	public InputField Text03;
 	
-	public int buttonState;
+	public int buttonState; 			// 0 - stop; 1 - 10 secs; 2 - play.
 	private float timeCount;
 	private float timeStart;
+	
+	public int currentIndex;
 	
 	public struct WaveData {
 		public	float wLength; 			// the crest-to-crest distance between waves in world space. wavelength, w = 2pi/L
@@ -39,7 +45,8 @@
 		
 	public List<WaveData> WaveDataItems = new List<WaveData>();
 	
-	Vector4 wDir = new Vector4(1,1,0,0);// direction of the wave, D
+	Vector4 wDir = new Vector4(1,1,1,0);// direction of the wave, D
+	Vector2 wDir2 = new Vector2(1,1);	// direction of the wave, D
 	
     private Vector3[] baseHeight;
   
@@ -105,8 +112,14 @@
 		// Just to know how many parameters are loaded
 		Debug.Log("List contains " + WaveDataItems.Count + " entries.");
 		
-		buttonState = 0;
+		// Initializes the mode stop/10 secs/play
+		buttonState = 2;
 		
+		// The index of wave selection
+		currentIndex = 0;
+		Text01.text = "0";
+		Text02.text = "0";
+		Text03.text = "0";
 	}
 	
 	/// <summary>
@@ -114,6 +127,8 @@
 	/// </summary>	
 	void Update () {
 		//Mesh mesh = GetComponent<MeshFilter>().mesh;
+		
+		float k = 1.5f;
 		
 		if (buttonState != 0) {
 	
@@ -127,30 +142,54 @@
 				
 				foreach(WaveData wd in WaveDataItems)
 				{
-					vertex.y += wd.wAmplitude * 
-								Mathf.Sin(	(Time.time * wd.wSpeed * 2 * Mathf.PI / wd.wLength) + 
-								Vector4.Dot(wDir, new Vector4(baseHeight[i].x, baseHeight[i].y, baseHeight[i].z, 0)) * 
-								(2*Mathf.PI/wd.wLength));
-					// vertex.x += wd.wAmplitude * 
-								// Mathf.Cos(	(Time.time * wd.wSpeed * 2 * Mathf.PI / wd.wLength) + 
-								// Vector4.Dot(wDir, new Vector4(baseHeight[i].x, baseHeight[i].y, baseHeight[i].z, 0)) * 
-								// (2*Mathf.PI/wd.wLength));							
+					// vertex.y += wd.wAmplitude * 
+								// //Vector2.Dot(wDir2, new Vector2(1, baseHeight[i].y)) * 
+								// Mathf.Sin(	(Time.time * wd.wSpeed * 2 * Mathf.PI / wd.wLength) + 
+								// //Vector4.Dot(wDir, new Vector4(baseHeight[i].x, baseHeight[i].y, baseHeight[i].z, 0)) * 
+								// Vector2.Dot(wDir2, new Vector2(baseHeight[i].x, baseHeight[i].y)) * 
+								// (2*Mathf.PI/wd.wLength));
+					// vertex.y += wd.wAmplitude * 2 *
+								// Mathf.Pow 	((Mathf.Sin(	(Time.time * wd.wSpeed * 2 * Mathf.PI / wd.wLength) + 
+											// Vector2.Dot(wDir2, new Vector2(baseHeight[i].x, baseHeight[i].y)) * 
+											// (2*Mathf.PI/wd.wLength)) + 1) / 2, k);
+					vertex.y += k * Vector2.Dot(new Vector2(1, 0), new Vector2(baseHeight[i].x, 0)) * wd.wAmplitude * (2*Mathf.PI/wd.wLength) *
+								Mathf.Pow 	((Mathf.Sin(	(Time.time * wd.wSpeed * 2 * Mathf.PI / wd.wLength) + 
+															Vector2.Dot(wDir2, new Vector2(baseHeight[i].x, baseHeight[i].y)) * 
+															(2*Mathf.PI/wd.wLength)) + 1) / 2, k-1) * 
+											Mathf.Cos(	(Time.time * wd.wSpeed * 2 * Mathf.PI / wd.wLength) + 
+														Vector2.Dot(wDir2, new Vector2(baseHeight[i].x, baseHeight[i].y)) * 
+														(2*Mathf.PI/wd.wLength));
 				}
 
-				vertex.y = vertex.y / WaveDataItems.Count;
-				//vertex.x = vertex.x / WaveDataItems.Count;
+				vertex.y = vertex.y / WaveDataItems.Count / 10;
 				vertices[i] = vertex;
 			}
 			mesh.vertices = vertices;
 			mesh.RecalculateNormals();
 			timeCount = Mathf.Abs(Time.time);
 			
+			// checks if time for button 1 is already over
 			if (buttonState == 1 && (timeCount-timeStart) > 10) {
 				buttonState = 0;
 				timeCount = 0;
 			}
 		}
-
+		
+		// Waves Controls
+		if ( Input.GetKeyDown(KeyCode.Z) ) { // left
+			if (Text01.text != WaveDataItems[currentIndex].wLength.ToString()) {
+				float floatTmp = 0.0f;
+				float.TryParse(Text01.text, out floatTmp);
+//				WaveDataItems[currentIndex].wLength.value = floatTmp;
+			}
+			if (currentIndex > 0) currentIndex--; else currentIndex = 0;
+			ChangeWaveDisplay();
+		}
+		if ( Input.GetKeyDown(KeyCode.X) ) { // right
+			if (currentIndex < WaveDataItems.Count-1) currentIndex++; else currentIndex = WaveDataItems.Count-1;
+			ChangeWaveDisplay();
+		}
+		
 		// Menu Controls
 		if ( Input.GetKeyDown(KeyCode.P) ) {
 			buttonState = 1;
@@ -181,6 +220,15 @@
 			toggle03.isOn = true;
 		}
 
+	}
+		
+	/// <summary>
+	/// Change the waves display on the right side
+	/// </summary>
+	void ChangeWaveDisplay() {
+		Text01.text = WaveDataItems[currentIndex].wLength.ToString();
+		Text02.text = WaveDataItems[currentIndex].wAmplitude.ToString();
+		Text03.text = WaveDataItems[currentIndex].wSpeed.ToString();	
 	}
 		
 	/// <summary>

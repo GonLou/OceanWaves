@@ -10,8 +10,8 @@ function Update ()
 	rotationY += Input.GetAxis("Mouse Y")*lookSpeed;
 	rotationY = Mathf.Clamp (rotationY, -90, 90);
  
-	//transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-	//transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+	// transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
+	// transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
  
 	transform.position += transform.forward*moveSpeed*Input.GetAxis("Vertical")*Time.deltaTime*3;
 	transform.position += transform.right*moveSpeed*Input.GetAxis("Horizontal")*Time.deltaTime*3;
