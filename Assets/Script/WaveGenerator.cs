@@ -26,6 +26,9 @@
 	public InputField Text02;
 	public InputField Text03;
 	
+	public Text bText01;
+	public Text bText02;
+	
 	public int buttonState; 			// 0 - stop; 1 - 10 secs; 2 - play.
 	private float timeCount;
 	private float timeStart;
@@ -113,7 +116,7 @@
 		Debug.Log("List contains " + WaveDataItems.Count + " entries.");
 		
 		// Initializes the mode stop/10 secs/play
-		buttonState = 2;
+		buttonState = 0;
 		
 		// The index of wave selection
 		currentIndex = 0;
@@ -128,7 +131,7 @@
 	void Update () {
 		//Mesh mesh = GetComponent<MeshFilter>().mesh;
 		
-		float k = 1.5f;
+		float k = 1.1f;
 		
 		if (buttonState != 0) {
 	
@@ -165,13 +168,14 @@
 				vertices[i] = vertex;
 			}
 			mesh.vertices = vertices;
-			mesh.RecalculateNormals();
+			//mesh.RecalculateNormals();
 			timeCount = Mathf.Abs(Time.time);
 			
 			// checks if time for button 1 is already over
 			if (buttonState == 1 && (timeCount-timeStart) > 10) {
 				buttonState = 0;
 				timeCount = 0;
+				bText01.text = "Play 10 seconds";
 			}
 		}
 		
@@ -188,16 +192,6 @@
 		if ( Input.GetKeyDown(KeyCode.X) ) { // right
 			if (currentIndex < WaveDataItems.Count-1) currentIndex++; else currentIndex = WaveDataItems.Count-1;
 			ChangeWaveDisplay();
-		}
-		
-		// Menu Controls
-		if ( Input.GetKeyDown(KeyCode.P) ) {
-			buttonState = 1;
-			timeStart = Mathf.Abs(Time.time);
-		}
-		if ( Input.GetKeyDown(KeyCode.L) ) {
-			if (buttonState == 2) buttonState = 0;
-			else buttonState = 2;
 		}
 		
 		// Change the materials
@@ -220,6 +214,49 @@
 			toggle03.isOn = true;
 		}
 
+	}
+	
+	// Menu Controls
+	public void ButtonStateOne () {
+		if (buttonState == 1)  {
+			buttonState = 0;
+			bText01.text = "Play 10 seconds";
+		}
+		else if (buttonState == 0) {
+			buttonState = 1;
+			timeStart = Mathf.Abs(Time.time);
+			bText01.text = "Stop animation";
+		}
+	}
+	public void ButtonStateTwo () {
+		if (buttonState == 2)  {
+			buttonState = 0;
+			bText02.text = "Play infinite loop";
+		}
+		else if (buttonState == 0) {
+			buttonState = 2;
+			bText02.text = "Stop animation";
+		}
+	}	
+	
+	// Change the materials Controls
+	public void Toggle01On() {
+			//go.renderer.material = material_01;
+			// toggle01.isOn = true;
+			// toggle02.isOn = false;
+			// toggle03.isOn = false;
+	}
+	public void Toggle02On() {
+			//go.renderer.material = material_02;
+			// toggle01.isOn = false;
+			// toggle02.isOn = true;
+			// toggle03.isOn = false;
+	}
+	public void Toggle03On() {
+			//go.renderer.material = material_03;
+			// toggle01.isOn = false;
+			// toggle02.isOn = false;
+			// toggle03.isOn = true;
 	}
 		
 	/// <summary>
